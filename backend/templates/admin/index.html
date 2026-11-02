@@ -1,0 +1,11 @@
+{% extends "admin/index.html" %}
+{% block content %}
+<section class="shop-welcome" aria-label="Управление магазином">
+  <p class="shop-eyebrow">SHOP / ПАНЕЛЬ МЕНЕДЖЕРА</p>
+  <h2>Всё для работы магазина.</h2>
+  <p>Заказы, товары и уведомления — выберите нужный раздел ниже.</p>
+</section>
+<div id="content-main">
+  {% include "admin/shop_app_list.html" with app_list=app_list %}
+</div>
+{% endblock %}

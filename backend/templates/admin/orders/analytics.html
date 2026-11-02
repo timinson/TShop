@@ -1,0 +1,42 @@
+{% extends "admin/base_site.html" %}
+{% load static l10n %}
+{% block bodyclass %}{{ block.super }} analytics-page{% endblock %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'shop_admin/analytics.css' %}?v=20261102-1">{% endblock %}
+{% block extrahead %}{{ block.super }}<script src="{% static 'shop_admin/analytics-graph.js' %}?v=20261102-1" defer></script><script src="{% static 'shop_admin/analytics-filters.js' %}?v=20261031-2" defer></script>{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">Главная</a> &rsaquo; Аналитика</div>{% endblock %}
+{% block content %}
+<div class="analytics">
+  <h1>Аналитика продаж</h1>
+  <p>Учитываются завершённые заказы по дате завершения.</p>
+  <form method="get" class="analytics-filters">
+    <fieldset class="analytics-mode" hidden>
+      <legend>Выбор периода</legend>
+      <label><input type="radio" name="period_mode" value="preset"> <span>Готовый период</span></label>
+      <label><input type="radio" name="period_mode" value="custom"> <span>Произвольные даты</span></label>
+    </fieldset>
+    <div class="analytics-filter-group analytics-filter-preset">
+      <div>{{ form.period.label_tag }} {{ form.period }} {{ form.period.errors }}</div>
+    </div>
+    <div class="analytics-filter-group analytics-filter-custom">
+      <div class="analytics-date-fields">
+        <div>{{ form.start.label_tag }} {{ form.start }} {{ form.start.errors }}</div>
+        <div>{{ form.end.label_tag }} {{ form.end }} {{ form.end.errors }}</div>
+      </div>
+      <p id="analytics-date-help">Для дат выберите «Свой период».</p>
+    </div>
+    <button type="submit">Применить</button>
+  </form>
+  {{ form.non_field_errors }}
+  {% if start %}
+  <p>Период: {{ start|date:"d.m.Y" }} — {{ end|date:"d.m.Y" }}. Группировка: {% if grouping == 'day' %}по дням{% elif grouping == 'week' %}по неделям{% else %}по месяцам{% endif %}. Для недель и месяцев указано начало календарного интервала; учитываются только дни выбранного периода.</p>
+  {% if unknown_count %}<p class="analytics-notice">Завершённых заказов без известной даты завершения: {{ unknown_count }}. Они не включены в показатели и графики.</p>{% endif %}
+  <div class="analytics-cards">{% for card in cards %}<section class="analytics-card{% if forloop.first %} analytics-revenue{% endif %}"><h2>{{ card.label }}</h2><strong>{% if card.money %}{{ card.value|floatformat:2 }} ₽{% else %}{{ card.value }}{% endif %}</strong></section>{% endfor %}</div>
+  {% if not current.orders %}<p class="analytics-empty">За выбранный период завершённых продаж нет.</p>{% endif %}
+  <div class="analytics-charts" data-orders-url="{% url 'sales_analytics_orders' %}">
+    <section class="analytics-chart-panel"><h2>Выручка за период</h2><div class="analytics-view-controls" hidden aria-label="Вид выручки"><button type="button" data-view="graph" aria-pressed="true">График</button><button type="button" data-view="list" aria-pressed="false">Список</button></div><div class="analytics-line-chart" hidden></div><div class="analytics-chart">{% for point in series reversed %}<div class="analytics-point" data-value="{% localize off %}{{ point.revenue }}{% endlocalize %}" data-label="{{ point.day|date:'d.m.Y' }}" data-start="{{ point.range_start|date:'Y-m-d' }}" data-end="{{ point.range_end|date:'Y-m-d' }}"><span>{{ point.day|date:"d.m.Y" }}</span><span class="analytics-bar-track"><span class="analytics-bar" style="width:{% localize off %}{{ point.revenue_width }}{% endlocalize %}%"></span></span><strong>{{ point.revenue|floatformat:2 }} ₽</strong></div>{% endfor %}</div></section>
+    <section class="analytics-chart-panel"><h2>Завершённые заказы</h2><div class="analytics-view-controls" hidden aria-label="Вид заказов"><button type="button" data-view="graph" aria-pressed="true">График</button><button type="button" data-view="list" aria-pressed="false">Список</button></div><div class="analytics-line-chart" hidden></div><div class="analytics-chart">{% for point in series reversed %}<div class="analytics-point" data-value="{% localize off %}{{ point.orders }}{% endlocalize %}" data-label="{{ point.day|date:'d.m.Y' }}" data-start="{{ point.range_start|date:'Y-m-d' }}" data-end="{{ point.range_end|date:'Y-m-d' }}"><span>{{ point.day|date:"d.m.Y" }}</span><span class="analytics-bar-track"><span class="analytics-bar" style="width:{% localize off %}{{ point.orders_width }}{% endlocalize %}%"></span></span><strong>{{ point.orders }}</strong></div>{% endfor %}</div></section>
+  </div>
+  <section><h2>Рейтинг товаров</h2><p>Названия сохранены на момент заказа. Одинаковые названия объединяются; разные названия показаны отдельно, даже если товар был переименован или удалён.</p>{% if ranking %}<div class="analytics-table"><table><thead><tr><th>Товар</th><th>Продано</th><th>Выручка</th></tr></thead><tbody>{% for item in ranking %}<tr><td>{{ item.name }}</td><td>{{ item.units }}</td><td>{{ item.revenue|floatformat:2 }} ₽</td></tr>{% endfor %}</tbody></table></div>{% else %}<p>За выбранный период товары не проданы.</p>{% endif %}</section>
+  {% endif %}
+</div>
+{% endblock %}

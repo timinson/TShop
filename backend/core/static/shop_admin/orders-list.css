@@ -1,0 +1,14 @@
+#result_list tbody tr:has(th.field-id a) { cursor: pointer; }
+#result_list tbody td, #result_list tbody th { padding: 14px 12px; }
+#result_list .field-items_summary { min-width: 180px; max-width: 360px; white-space: normal; }
+#result_list a:focus-visible { outline: 3px solid var(--link-fg); outline-offset: 3px; }
+.order-status { display: inline-block; padding: 5px 10px; border-radius: 999px; font-weight: 600; white-space: nowrap; }
+.order-status--new { color: #195391; background: #dcecff; }
+.order-status--processing { color: #735008; background: #fff0c6; }
+.order-status--completed { color: #175d38; background: #d7f3e2; }
+.order-status--cancelled { color: #862d32; background: #ffe1e1; }
+@media (max-width: 767px) {
+  #changelist #toolbar #searchbar { width: min(14rem, 55vw); }
+  #result_list tbody td, #result_list tbody th { padding: 11px 10px; }
+  #result_list .field-items_summary { min-width: 150px; }
+}

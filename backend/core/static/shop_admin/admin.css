@@ -1,0 +1,255 @@
+/* Keep Django's markup, permissions and controls; customize presentation only. */
+:root, html[data-theme="light"] {
+  --primary: #214e3a;
+  --secondary: #214e3a;
+  --accent: #ffffff;
+  --primary-fg: #ffffff;
+  --body-fg: #1d2522;
+  --body-bg: #f7f8f5;
+  --body-quiet-color: #596b61;
+  --body-medium-color: #41544a;
+  --body-loud-color: #1d2522;
+  --header-color: #1d2522;
+  --header-branding-color: #1d2522;
+  --header-bg: #f7f8f5;
+  --header-link-color: #214e3a;
+  --breadcrumbs-fg: #596b61;
+  --breadcrumbs-link-fg: #214e3a;
+  --breadcrumbs-bg: #edf0e9;
+  --link-fg: #285e45;
+  --link-hover-color: #163e2b;
+  --link-selected-fg: #214e3a;
+  --hairline-color: #e3e8df;
+  --border-color: #d3dcd2;
+  --darkened-bg: #edf0e9;
+  --selected-bg: #e8eee4;
+  --selected-row: #e5efdf;
+  --button-fg: #ffffff;
+  --object-tools-fg: #ffffff;
+  --button-bg: #214e3a;
+  --button-hover-bg: #163e2b;
+  --default-button-bg: #214e3a;
+  --default-button-hover-bg: #163e2b;
+  --close-button-bg: #56665d;
+  --close-button-hover-bg: #3c4b42;
+  --object-tools-bg: #214e3a;
+  --object-tools-hover-bg: #163e2b;
+  --admin-focus: #21704e;
+  --font-family-primary: Inter, "Segoe UI", sans-serif;
+}
+html[data-theme="dark"] {
+  --primary: #d5d5d5;
+  --secondary: #2b2b2b;
+  --accent: #ececec;
+  --primary-fg: #212121;
+  --body-fg: #ececec;
+  --body-bg: #212121;
+  --body-quiet-color: #b4b4b4;
+  --body-medium-color: #cdcdcd;
+  --body-loud-color: #f5f5f5;
+  --header-branding-color: #ececec;
+  --header-bg: #212121;
+  --header-color: #ececec;
+  --header-link-color: #ececec;
+  --breadcrumbs-bg: #2b2b2b;
+  --breadcrumbs-fg: #b4b4b4;
+  --breadcrumbs-link-fg: #ececec;
+  --link-fg: #dedede;
+  --link-hover-color: #ffffff;
+  --link-selected-fg: #ffffff;
+  --hairline-color: #383838;
+  --border-color: #484848;
+  --darkened-bg: #2b2b2b;
+  --selected-bg: #353535;
+  --selected-row: #3d3d3d;
+  --button-fg: #212121;
+  --object-tools-fg: #212121;
+  --button-bg: #dedede;
+  --button-hover-bg: #ffffff;
+  --default-button-bg: #dedede;
+  --default-button-hover-bg: #ffffff;
+  --close-button-bg: #555555;
+  --close-button-hover-bg: #666666;
+  --object-tools-bg: #dedede;
+  --object-tools-hover-bg: #ffffff;
+  --admin-focus: #b4b4b4;
+}
+
+@media (prefers-color-scheme: dark) {
+html[data-theme="auto"] {
+  --primary: #d5d5d5;
+  --secondary: #2b2b2b;
+  --accent: #ececec;
+  --primary-fg: #212121;
+  --body-fg: #ececec;
+  --body-bg: #212121;
+  --body-quiet-color: #b4b4b4;
+  --body-medium-color: #cdcdcd;
+  --body-loud-color: #f5f5f5;
+  --header-branding-color: #ececec;
+  --header-bg: #212121;
+  --header-color: #ececec;
+  --header-link-color: #ececec;
+  --breadcrumbs-bg: #2b2b2b;
+  --breadcrumbs-fg: #b4b4b4;
+  --breadcrumbs-link-fg: #ececec;
+  --link-fg: #dedede;
+  --link-hover-color: #ffffff;
+  --link-selected-fg: #ffffff;
+  --hairline-color: #383838;
+  --border-color: #484848;
+  --darkened-bg: #2b2b2b;
+  --selected-bg: #353535;
+  --selected-row: #3d3d3d;
+  --button-fg: #212121;
+  --object-tools-fg: #212121;
+  --button-bg: #dedede;
+  --button-hover-bg: #ffffff;
+  --default-button-bg: #dedede;
+  --default-button-hover-bg: #ffffff;
+  --close-button-bg: #555555;
+  --close-button-hover-bg: #666666;
+  --object-tools-bg: #dedede;
+  --object-tools-hover-bg: #ffffff;
+  --admin-focus: #b4b4b4;
+}
+}
+
+body { font-family: Inter, "Segoe UI", sans-serif; }
+#header { border-bottom: 1px solid var(--border-color); padding: 24px 32px; gap: 20px; }
+.shop-logo { font-size: 30px; font-weight: 750; letter-spacing: -1.2px; color: var(--body-loud-color) !important; }
+.shop-logo span { font-size: 12px; font-weight: 400; letter-spacing: 0; color: var(--body-quiet-color); margin-left: 6px; }
+#user-tools { line-height: 2; }
+#user-tools a, #logout-form button { border-bottom: 1px solid var(--border-color); }
+div.breadcrumbs { padding: 14px 32px; }
+#content { padding: 28px 32px; }
+#content h1 { font-size: 28px; font-weight: 600; letter-spacing: -.6px; margin-bottom: 24px; }
+.module, .inline-group, #changelist-filter, .submit-row {
+  border: 1px solid var(--border-color); border-radius: 10px;
+}
+.module h2, .module caption, .inline-group h2 {
+  background: var(--darkened-bg); color: var(--body-loud-color); padding: 14px 16px;
+}
+.module caption { border-radius: 9px 9px 0 0; }
+.module caption a.section:link, .module caption a.section:visited { color: var(--body-loud-color); font-weight: 600; }
+th, td { padding: 13px 12px; vertical-align: middle; }
+#changelist table thead th { padding: 10px 0; }
+#changelist table tbody tr:hover { background: var(--darkened-bg); }
+#changelist #toolbar { padding: 16px; border-radius: 10px 10px 0 0; }
+#changelist .actions { padding: 12px 16px; }
+#changelist-filter h2 { border-radius: 9px 9px 0 0; }
+#changelist-filter h3 { font-weight: 600; }
+input[type="text"], input[type="password"], input[type="email"], input[type="url"],
+input[type="number"], input[type="search"], input[type="date"], textarea, select {
+  border-radius: 6px; padding: 9px 11px; border: 1px solid var(--border-color);
+}
+input[type="date"] { box-sizing: border-box; min-height: 40px; background: var(--body-bg); color: var(--body-fg); color-scheme: light; }
+html[data-theme="dark"] input[type="date"] { color-scheme: dark; }
+@media (prefers-color-scheme: dark) { html[data-theme="auto"] input[type="date"] { color-scheme: dark; } }
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--admin-focus); outline-offset: 2px; }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--admin-focus); }
+/* Django sets a fixed select height which clips text after adding padding. */
+select:not([multiple]) { height: auto; min-height: 40px; line-height: 1.4; }
+/* The read-only order table already has product and quantity columns. */
+#items-group .tabular td.original p, #variants-group .tabular td.original p { display: none; }
+#items-group .tabular tr.has_original td, #variants-group .tabular tr.has_original td { padding-top: 13px; }
+#variants-group .tabular input:not([type="checkbox"]) { box-sizing: border-box; width: 100%; min-width: 80px; }
+#variants-group .tabular td.field-color, #variants-group .tabular td.field-memory { min-width: 130px; }
+.button, input[type="submit"], input[type="button"], .submit-row input, a.button {
+  border-radius: 6px; padding: 11px 16px; font-weight: 500;
+}
+.object-tools a:link, .object-tools a:visited { border-radius: 6px; padding: 10px 16px; }
+.object-tools a.addlink:link, .object-tools a.addlink:visited { padding-right: 36px; background-position: right 12px center; }
+.submit-row { padding: 16px; gap: 12px; }
+.form-row { padding: 16px; }
+.help, p.help, form p.help, div.help { line-height: 1.6; }
+.shop-welcome { margin-bottom: 24px; padding: 24px; background: var(--darkened-bg); border-radius: 10px; }
+.shop-welcome .shop-eyebrow { font-size: 10px; letter-spacing: 2px; color: var(--body-quiet-color); margin-top: 0; }
+.shop-welcome h2 { font-size: 26px; font-weight: 600; margin: 12px 0; }
+.shop-welcome p:last-child { margin-bottom: 0; color: var(--body-quiet-color); line-height: 1.6; }
+#nav-sidebar { background: var(--body-bg); }
+#nav-sidebar .module { border: 0; border-radius: 0; }
+#nav-filter { box-sizing: border-box; }
+body.login #container { border-radius: 12px; box-shadow: 0 12px 40px #1837240d; }
+body.login #header { padding: 24px; justify-content: center; }
+body.login #branding { float: none; width: 100%; justify-content: center; text-align: center; }
+body.login .shop-logo { display: inline-block; text-align: center; }
+body.login .shop-logo span { display: block; margin: 6px 0 0; }
+body.login #content { padding: 24px; }
+body.login .submit-row { border: 0; border-radius: 0; background: transparent; box-shadow: none; padding: 16px 0 0; margin-bottom: 0; }
+@media (max-width: 767px) {
+  #header { padding: 18px 16px; }
+  #content { padding: 20px 16px; }
+  div.breadcrumbs { padding: 12px 16px; }
+  .shop-logo span { display: block; margin-top: 4px; }
+  .shop-welcome { padding: 18px; }
+  #content h1 { font-size: 24px; }
+}
+
+/* Use the original admin blocks in a stable, responsive dashboard grid. */
+.dashboard #content {
+  width: 100%;
+  max-width: 1564px;
+  box-sizing: border-box;
+  display: grid;
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+  column-gap: 24px;
+  align-items: start;
+}
+.dashboard #content > h1, .dashboard #content > p, .dashboard #content > .shop-welcome { grid-column: 1 / -1; }
+.dashboard #content-main, .dashboard #content-related {
+  float: none; width: auto; min-width: 0; margin: 0;
+}
+.dashboard #content-main { grid-column: 1; }
+.dashboard #content-related { grid-column: 2; background: transparent; }
+.dashboard #content-main .module { margin-bottom: 20px; }
+.dashboard #recent-actions-module { padding-bottom: 12px; margin-bottom: 0; overflow: hidden; }
+.dashboard #recent-actions-module h3, .dashboard #recent-actions-module ul { margin: 16px; }
+.dashboard .module table { width: 100%; }
+.dashboard .module table th { width: auto; }
+.dashboard .module table td { white-space: normal; }
+.dashboard .shop-app-list table { table-layout: fixed; }
+.dashboard .shop-app-list table th { width: auto; }
+.dashboard .shop-app-list td.shop-action { width: 48px; padding: 4px; text-align: center; }
+.dashboard .module table td a.shop-action-link { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; width: 40px; height: 40px; padding: 0; border: 1px solid transparent; border-radius: 8px; color: var(--link-fg); }
+.dashboard .shop-action-link:hover { background: var(--selected-bg); border-color: var(--border-color); color: var(--link-hover-color); }
+.dashboard .shop-action-link:focus-visible { outline: 2px solid var(--admin-focus); outline-offset: 2px; }
+.dashboard .shop-action-link svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+#content-main, #content, #changelist-form { min-width: 0; }
+#changelist { gap: 20px; border: 0; }
+#changelist-filter { flex: 0 0 240px; margin-left: 0; }
+#changelist .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+#changelist .actions button.button { box-sizing: border-box; min-height: 40px; padding: 0 16px; }
+#changelist #toolbar form { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+#changelist #toolbar #searchbar, #changelist #toolbar input[type="submit"] { height: 40px; box-sizing: border-box; vertical-align: middle; }
+#changelist #toolbar input[type="submit"] { padding: 0 16px; }
+.change-form .form-row .flex-container { align-items: start; gap: 12px; }
+.change-form .form-row .flex-container > div { min-width: 0; }
+.change-form .form-row textarea, .change-form .form-row input:not([type="checkbox"]):not([type="radio"]),
+.change-form .form-row select { box-sizing: border-box; max-width: 100%; }
+.change-form .form-row textarea { width: min(100%, 680px); }
+.change-form .form-row .readonly, .change-form .file-upload { overflow-wrap: anywhere; }
+.change-form .inline-group .tabular { overflow-x: auto; }
+.change-form .inline-group table { width: 100%; }
+.change-form .submit-row { display: flex; flex-wrap: wrap; align-items: center; }
+.change-form .submit-row input, .change-form .submit-row a { margin: 0; }
+.submit-row input, .submit-row a.deletelink, .submit-row a.closelink { box-sizing: border-box; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; }
+html[data-theme="dark"] .object-tools a { color: #212121; }
+html[data-theme="dark"] .object-tools a.deletelink { color: #ffffff; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] .object-tools a { color: #212121; }
+  html[data-theme="auto"] .object-tools a.deletelink { color: #ffffff; }
+}
+@media (max-width: 1024px) {
+  .dashboard #content { grid-template-columns: minmax(0, 1fr); }
+  .dashboard #content-related { grid-column: 1; margin-top: 4px; }
+  #changelist { flex-wrap: wrap; }
+  #changelist .changelist-form-container { flex-basis: 100%; }
+  #changelist-filter { flex-basis: 100%; position: static; width: auto; }
+}
+
+/* Destructive and close buttons use dark backgrounds in every theme. */
+.submit-row a.deletelink:link, .submit-row a.deletelink:visited,
+.delete-confirmation form input[type="submit"],
+a.button.cancel-link, .submit-row a.closelink, .submit-row a.closelink:visited { color: #ffffff; }

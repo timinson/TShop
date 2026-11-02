@@ -1,0 +1,37 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} — админка shop{% endblock %}
+{% block extrahead %}{{ block.super }}<link rel="icon" href="/favicon.ico" sizes="any">{% endblock %}
+{% block dark-mode-vars %}
+<script>
+  // Adopt the old store preference before Django initializes its theme.
+  (() => {
+    try {
+      const legacy = localStorage.getItem('shop-theme');
+      if (['light', 'dark'].includes(legacy)) {
+        localStorage.setItem('theme', legacy);
+      }
+      localStorage.removeItem('shop-theme');
+    } catch {}
+    // Changes in another store/admin tab should apply without a reload.
+    window.addEventListener('storage', event => {
+      if (event.key !== 'theme' && event.key !== null) return;
+      let mode = 'auto';
+      try { mode = localStorage.getItem('theme'); } catch {}
+      document.documentElement.dataset.theme = ['light', 'dark'].includes(mode) ? mode : 'auto';
+    });
+  })();
+</script>
+{{ block.super }}
+{% endblock %}
+{% block branding %}
+<div class="shop-brand">
+  <a href="{% url 'admin:index' %}" class="shop-logo">shop<span>управление магазином</span></a>
+</div>
+{% endblock %}
+{% block nav-global %}{% if perms.orders.view_order %}<nav class="analytics-nav"><a href="{% url 'sales_analytics' %}">Аналитика</a></nav>{% endif %}{% endblock %}
+{% block responsive %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'shop_admin/admin.css' %}?v=20261102-1">
+{% endblock %}
